@@ -3,7 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SystemHealthBadge } from './components/SystemHealthBadge';
 import { PhaseTracker } from './components/PhaseTracker';
-import { Check, ShieldCheck, Database, GitBranch, Terminal, Cpu } from 'lucide-react';
+import { Check, ShieldCheck, GitBranch, Terminal } from 'lucide-react';
 
 export const App: React.FC = () => {
   return (

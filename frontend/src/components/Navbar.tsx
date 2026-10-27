@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Terminal, Sparkles, Github } from 'lucide-react';
+import { Layers, Terminal, Github } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   return (

@@ -68,6 +68,7 @@ frontend/dist/
 frontend/dist-ssr/
 frontend/.next/
 frontend/out/
+*.tsbuildinfo
 
 # Database & local storage
 *.sqlite3
