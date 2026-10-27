@@ -1,8 +1,9 @@
 import time
+
+import redis
 from fastapi import APIRouter, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
-import redis
 
 from app.api.deps import get_db
 from app.core.config import settings
@@ -30,7 +31,13 @@ def health_check(db: Session = Depends(get_db)) -> HealthCheckResponse:
     redis_status = ServiceStatus(status="healthy")
     try:
         t0 = time.perf_counter()
-        r = redis.Redis.from_url(settings.REDIS_URL, socket_connect_timeout=1.0)
+        r = redis.Redis.from_url(
+            settings.REDIS_URL,
+            socket_connect_timeout=0.2,
+            socket_timeout=0.2,
+            retry=None,
+            retry_on_timeout=False,
+        )
         r.ping()
         redis_status.latency_ms = round((time.perf_counter() - t0) * 1000, 2)
     except Exception as exc:

@@ -1,12 +1,12 @@
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
+
 from pydantic import BaseModel, Field
 
 
 class ServiceStatus(BaseModel):
     status: str = Field(description="Operational status: healthy, degraded, or unreachable")
-    latency_ms: Optional[float] = Field(default=None, description="Response latency in milliseconds")
-    error: Optional[str] = Field(default=None, description="Error message if unhealthy")
+    latency_ms: float | None = Field(default=None, description="Response latency in milliseconds")
+    error: str | None = Field(default=None, description="Error message if unhealthy")
 
 
 class HealthCheckResponse(BaseModel):
@@ -17,6 +17,6 @@ class HealthCheckResponse(BaseModel):
     database: ServiceStatus = Field(description="Database connectivity status")
     redis: ServiceStatus = Field(description="Redis cache connectivity status")
     timestamp: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         description="Current server UTC timestamp",
     )
